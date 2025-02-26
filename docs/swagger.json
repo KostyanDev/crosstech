@@ -1,0 +1,556 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/signal": {
+            "get": {
+                "description": "Retrieves signals based on query parameters",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "signals"
+                ],
+                "summary": "Get signals",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Filter by signal ID",
+                        "name": "signal_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Filter by track ID",
+                        "name": "track_id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of signals",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/app_internal_domain.Signal"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid query parameters",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/signal/create": {
+            "post": {
+                "description": "Creates a new signal in the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "signals"
+                ],
+                "summary": "Create a signal",
+                "parameters": [
+                    {
+                        "description": "Signal creation data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/app_internal_transport_converters.CreatSignalRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signal creation",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/signal/update": {
+            "post": {
+                "description": "Updates an existing signal in the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "signals"
+                ],
+                "summary": "Update a signal",
+                "parameters": [
+                    {
+                        "description": "Signal update data",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/app_internal_transport_converters.UpdateSignalRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signal update",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/track": {
+            "get": {
+                "description": "This endpoint fetches tracks based on optional filters such as ID, source, or target.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tracks"
+                ],
+                "summary": "Retrieve tracks",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Track ID",
+                        "name": "track_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Source station of the track",
+                        "name": "source",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Target station of the track",
+                        "name": "target",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of tracks",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/app_internal_domain.Track"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Invalid query parameters",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found: No tracks found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error: Failed to retrieve tracks",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/track/create": {
+            "post": {
+                "description": "This endpoint allows the creation of a new track in the system.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tracks"
+                ],
+                "summary": "Create a track",
+                "parameters": [
+                    {
+                        "description": "Track Creation Request",
+                        "name": "track",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/app_internal_transport_converters.CreatTrackRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "status: success, message: Track created successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Invalid JSON",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error: Failed to create track",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/track/update": {
+            "put": {
+                "description": "This endpoint updates an existing track with new values.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tracks"
+                ],
+                "summary": "Update a track",
+                "parameters": [
+                    {
+                        "description": "Track Update Request",
+                        "name": "track",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/app_internal_transport_converters.UpdateTrackRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "status: success, message: Track updated successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Invalid JSON",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found: Track not found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error: Failed to update track",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/upload_file": {
+            "post": {
+                "description": "This endpoint receives a JSON file name, processes its content, and inserts relevant data into the database.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "files"
+                ],
+                "summary": "Upload and process a JSON file",
+                "parameters": [
+                    {
+                        "description": "File Upload Request",
+                        "name": "file",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/app_internal_transport_converters.UploadFileRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "status: success, message: File processed successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request: Invalid JSON",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error: Failed to process the file",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "app_internal_domain.Signal": {
+            "type": "object",
+            "properties": {
+                "elr": {
+                    "type": "string"
+                },
+                "is_deleted": {
+                    "type": "boolean"
+                },
+                "mileage": {
+                    "type": "number"
+                },
+                "signal_id": {
+                    "type": "integer"
+                },
+                "signal_name": {
+                    "type": "string"
+                },
+                "track_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "app_internal_domain.Track": {
+            "type": "object",
+            "properties": {
+                "signal_ids": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/app_internal_domain.Signal"
+                    }
+                },
+                "source": {
+                    "type": "string"
+                },
+                "target": {
+                    "type": "string"
+                },
+                "track_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "app_internal_transport_converters.CreatSignalRequest": {
+            "type": "object",
+            "properties": {
+                "elr": {
+                    "type": "string"
+                },
+                "mileage": {
+                    "type": "number"
+                },
+                "signal_id": {
+                    "type": "integer"
+                },
+                "signal_name": {
+                    "type": "string"
+                },
+                "track_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "app_internal_transport_converters.CreatTrackRequest": {
+            "type": "object",
+            "properties": {
+                "signal": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/app_internal_transport_converters.CreatSignalRequest"
+                    }
+                },
+                "source": {
+                    "type": "string"
+                },
+                "target": {
+                    "type": "string"
+                },
+                "track_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "app_internal_transport_converters.UpdateSignalRequest": {
+            "type": "object",
+            "properties": {
+                "elr": {
+                    "type": "string"
+                },
+                "is_deleted": {
+                    "type": "boolean"
+                },
+                "mileage": {
+                    "type": "number"
+                },
+                "signal_id": {
+                    "type": "integer"
+                },
+                "signal_name": {
+                    "type": "string"
+                },
+                "track_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "app_internal_transport_converters.UpdateTrackRequest": {
+            "type": "object",
+            "properties": {
+                "is_deleted": {
+                    "type": "boolean"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "target": {
+                    "type": "string"
+                },
+                "track_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "app_internal_transport_converters.UploadFileRequest": {
+            "type": "object",
+            "properties": {
+                "file_name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,111 @@
+[
+  {
+    "track_id": 11111111,
+    "source": "Acton Central",
+    "target": "Willesden Junction",
+    "signal_ids": [
+      {
+        "signal_id": 111111111,
+        "signal_name": "SIG:AW148(CO) ACTON WELLS JCN",
+        "elr": "LPC5",
+        "mileage": 3.1745
+      },
+      {
+        "signal_id": 111111112,
+        "signal_name": "SIG:SN169(CO) IECC PDRF14 LOC R3/107",
+        "elr": "ONM1",
+        "mileage": 4.2126
+      },
+      {
+        "signal_id": 111111113,
+        "signal_name": "SIG:SN173(CO) IECC PDMN02 LOC M3/144",
+        "elr": "MNO1",
+        "mileage": 5.6889
+      },
+      {
+        "signal_id": 111111114,
+        "signal_name": "SIG:WS16(CO)WILLESDEN JCN",
+        "elr": "KXD",
+        "mileage": 7.8087
+      },
+      {
+        "signal_id": 111111115,
+        "signal_name": "SIG:WS22(CO)WILLESDEN JCN",
+        "elr": "KDX",
+        "mileage": 6.4412
+      },
+      {
+        "signal_id": 111111116,
+        "signal_name": "SIG:WS23(CO)WILLESDEN JCN",
+        "elr": "KDX",
+        "mileage": 6.6028
+      },
+      {
+        "signal_id": 111111117,
+        "signal_name": "SIG:WS25(CO)WILLESDEN JCN",
+        "elr": "DKX",
+        "mileage": 6.6702
+      },
+      {
+        "signal_id": 111111118,
+        "signal_name": "SIG:WM126(CO)WILLESDEN JCN",
+        "elr": "MDF1",
+        "mileage": 6.8593
+      },
+      {
+        "signal_id": 111111119,
+        "signal_name": "SIG:WM129(CO)WILLESDEN JCN",
+        "elr": "FDM1",
+        "mileage": 7.8602
+      },
+      {
+        "signal_id": 1111111110,
+        "signal_name": "SIG:WM330(CO)WILLESDEN JCN",
+        "elr": "MDF1",
+        "mileage": 6.3804
+      },
+      {
+        "signal_id": 1111111111,
+        "signal_name": "SIG:WM738(CO)WEST LONDON JCN",
+        "elr": "XMM",
+        "mileage": 7.41
+      },
+      {
+        "signal_id": 1111111112,
+        "signal_name": "SIG:WM814(CO) WEST LONDON JN",
+        "elr": "MMH",
+        "mileage": 0.6699
+      },
+      {
+        "signal_id": 1111111113,
+        "signal_name": "SIG:WM918(CO) WEST LONDON JN",
+        "elr": "MHM",
+        "mileage": 0.7413
+      },
+      {
+        "signal_id": 1111111114,
+        "signal_name": null,
+        "elr": "NMO1",
+        "mileage": NaN
+      },
+      {
+        "signal_id": 1111111115,
+        "signal_name": null,
+        "elr": "XDK",
+        "mileage": NaN
+      },
+      {
+        "signal_id": 1111111116,
+        "signal_name": null,
+        "elr": "DKX",
+        "mileage": NaN
+      },
+      {
+        "signal_id": 1111111117,
+        "signal_name": "SIG:WM626(CO)WILLESDEN JCN",
+        "elr": "XBX",
+        "mileage": 7.4033
+      }
+    ]
+  }
+]

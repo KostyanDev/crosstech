@@ -1,0 +1,364 @@
+definitions:
+  app_internal_domain.Signal:
+    properties:
+      elr:
+        type: string
+      is_deleted:
+        type: boolean
+      mileage:
+        type: number
+      signal_id:
+        type: integer
+      signal_name:
+        type: string
+      track_id:
+        type: integer
+    type: object
+  app_internal_domain.Track:
+    properties:
+      signal_ids:
+        items:
+          $ref: '#/definitions/app_internal_domain.Signal'
+        type: array
+      source:
+        type: string
+      target:
+        type: string
+      track_id:
+        type: integer
+    type: object
+  app_internal_transport_converters.CreatSignalRequest:
+    properties:
+      elr:
+        type: string
+      mileage:
+        type: number
+      signal_id:
+        type: integer
+      signal_name:
+        type: string
+      track_id:
+        type: integer
+    type: object
+  app_internal_transport_converters.CreatTrackRequest:
+    properties:
+      signal:
+        items:
+          $ref: '#/definitions/app_internal_transport_converters.CreatSignalRequest'
+        type: array
+      source:
+        type: string
+      target:
+        type: string
+      track_id:
+        type: integer
+    type: object
+  app_internal_transport_converters.UpdateSignalRequest:
+    properties:
+      elr:
+        type: string
+      is_deleted:
+        type: boolean
+      mileage:
+        type: number
+      signal_id:
+        type: integer
+      signal_name:
+        type: string
+      track_id:
+        type: integer
+    type: object
+  app_internal_transport_converters.UpdateTrackRequest:
+    properties:
+      is_deleted:
+        type: boolean
+      source:
+        type: string
+      target:
+        type: string
+      track_id:
+        type: integer
+    type: object
+  app_internal_transport_converters.UploadFileRequest:
+    properties:
+      file_name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /signal:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves signals based on query parameters
+      parameters:
+      - description: Filter by signal ID
+        in: query
+        name: signal_id
+        type: integer
+      - description: Filter by track ID
+        in: query
+        name: track_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of signals
+          schema:
+            items:
+              $ref: '#/definitions/app_internal_domain.Signal'
+            type: array
+        "400":
+          description: Invalid query parameters
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get signals
+      tags:
+      - signals
+  /signal/create:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new signal in the system
+      parameters:
+      - description: Signal creation data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/app_internal_transport_converters.CreatSignalRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful signal creation
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid request data
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a signal
+      tags:
+      - signals
+  /signal/update:
+    post:
+      consumes:
+      - application/json
+      description: Updates an existing signal in the system
+      parameters:
+      - description: Signal update data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/app_internal_transport_converters.UpdateSignalRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful signal update
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid request data
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update a signal
+      tags:
+      - signals
+  /track:
+    get:
+      consumes:
+      - application/json
+      description: This endpoint fetches tracks based on optional filters such as
+        ID, source, or target.
+      parameters:
+      - description: Track ID
+        in: query
+        name: track_id
+        type: integer
+      - description: Source station of the track
+        in: query
+        name: source
+        type: string
+      - description: Target station of the track
+        in: query
+        name: target
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of tracks
+          schema:
+            items:
+              $ref: '#/definitions/app_internal_domain.Track'
+            type: array
+        "400":
+          description: 'Bad Request: Invalid query parameters'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: 'Not Found: No tracks found'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: 'Internal Server Error: Failed to retrieve tracks'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Retrieve tracks
+      tags:
+      - tracks
+  /track/create:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint allows the creation of a new track in the system.
+      parameters:
+      - description: Track Creation Request
+        in: body
+        name: track
+        required: true
+        schema:
+          $ref: '#/definitions/app_internal_transport_converters.CreatTrackRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: 'status: success, message: Track created successfully'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: 'Bad Request: Invalid JSON'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: 'Internal Server Error: Failed to create track'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a track
+      tags:
+      - tracks
+  /track/update:
+    put:
+      consumes:
+      - application/json
+      description: This endpoint updates an existing track with new values.
+      parameters:
+      - description: Track Update Request
+        in: body
+        name: track
+        required: true
+        schema:
+          $ref: '#/definitions/app_internal_transport_converters.UpdateTrackRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'status: success, message: Track updated successfully'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: 'Bad Request: Invalid JSON'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: 'Not Found: Track not found'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: 'Internal Server Error: Failed to update track'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update a track
+      tags:
+      - tracks
+  /upload_file:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint receives a JSON file name, processes its content,
+        and inserts relevant data into the database.
+      parameters:
+      - description: File Upload Request
+        in: body
+        name: file
+        required: true
+        schema:
+          $ref: '#/definitions/app_internal_transport_converters.UploadFileRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'status: success, message: File processed successfully'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: 'Bad Request: Invalid JSON'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: 'Internal Server Error: Failed to process the file'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Upload and process a JSON file
+      tags:
+      - files
+swagger: "2.0"
