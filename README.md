@@ -1,71 +1,58 @@
-# FXC Go Take-Home Technical Task
+# **Railway Signal and Track Management Microservice**
 
+## **Project Description**
+This microservice is designed to manage railway signals and tracks. It provides a RESTful API that allows users to create, update, and retrieve railway signals and tracks while maintaining relationships between them. The system is built with **Golang**, **PostgreSQL**, and follows a clean architecture approach.
 
-## Project Description
-Frogo Baddins, a hobbit from the Shire, has $10,000 and wants to send money to his friend in the Philippines. He has been gathering a database of the different FX rates offered by various FX payment companies, on different days, for different transfer amounts.
+## **Project Goals and Approach**
+The goal of this project was to demonstrate my ability to design and develop a scalable microservice that efficiently handles railway track and signal data. The focus was on writing clean, maintainable, and testable code while ensuring robust data integrity and API functionality. The project follows industry best practices, including structured logging, database migrations, and automated testing.
 
-## Project Goals and Approach
-The main goal of this project was to demonstrate my capabilities in designing and developing a microservice that meets specific requirements. Throughout the development process, I focused on showcasing my skills in project architecture, coding best practices, and efficient problem-solving. While striving to deliver a robust and scalable solution, I also aimed to balance the time spent on the project with the quality of the results achieved. This involved making thoughtful decisions about the scope and depth of the implementation, ensuring that the final product is both functional and maintainable within the given timeframe. This project not only reflects my technical expertise but also my ability to manage and execute a development task effectively
+---
 
-## Task
-Build a microservice that fulfills Frogo's requirements, to supply Samrise's application with data.
+## **Task**
+Build a microservice that allows users to manage railway signals and tracks with the following capabilities:
 
-### Requirements
-- Connect to a MariaDB instance
-- Have an HTTP endpoint at an appropriately-named path, that takes the chosen date as a parameter
-- Retrieve the relevant data from a table in MariaDB called `pricing`
-- Transform the retrieved data into a form suitable for displaying in a table in Samrise's style (no transformation of the response should be required on the frontend)
-- Return the transformed data in the response to the HTTP endpoint call
+### **Requirements**
+- Connect to a **PostgreSQL** database
+- Implement CRUD operations for **signals** and **tracks**
+- Establish relationships between **signals** and **tracks**
+- Support soft deletion for data integrity
+- Provide Swagger documentation for API endpoints
+- Implement integration tests for core functionality
+- Use Docker and Docker Compose for easy deployment
 
-## Project Run
-```
-  make all
-```
-## Prerequisites
+---
+## **Makefile Commands**
+| Command          | Description                                      |
+|-----------------|--------------------------------------------------|
+| `make all`      | Build the application and start all containers   |
+| `make build`    | Build the application binary                     |
+| `make up`       | Start the application and database               |
+| `make down`     | Stop the application and database                |
+| `make restart`  | Restart the application                          |
+| `make test`     | Run all integration tests                        |
+| `make clean-db` | Clean up test data from the database             |
+| `make swagger`  | Generate Swagger documentation                   |
 
-	•	Docker
-	•	Docker Compose
+---
+## **Usage** 
 
-## Usage
+After starting the application, the API will be available at:
+http://0.0.0.0:8080
+Swagger documentation can be accessed at:
+http://0.0.0.0:8080/swagger/index.html
+### **API Endpoints**
+#### **Signals**
+| Method | Endpoint              | Description                      |
+|--------|-----------------------|----------------------------------|
+| `POST` | `/signal/create`      | Create a new signal             |
+| `PUT`  | `/signal/update`      | Update an existing signal       |
+| `GET`  | `/signals`            | Retrieve signals with filters   |
 
-After starting the application, the microservice will be available at **http://0.0.0.0:8080**.
+#### **Tracks**
+| Method | Endpoint              | Description                      |
+|--------|-----------------------|----------------------------------|
+| `POST` | `/track/create`       | Create a new track              |
+| `PUT`  | `/track/update`       | Update an existing track        |
+| `GET`  | `/tracks`             | Retrieve tracks with filters    |
 
-## Sample Request
-
-To get FX rates for a specific date, you can make a POST request to the **/pricing** endpoint with the following JSON body:
-```
-curl -X POST http://0.0.0.0:8080/pricing -H "Content-Type: application/json" -d '{"date":"2024-01-10"}'
-```
-
-**Request**
-```
-{
-    "date": "2024-01-10"
-}
-```
-
-**Response**
-```
-[
-    {
-        "amount": 500,
-        "details": [
-            {
-                "organization_name": "GlobalSettle",
-                "rate": 1.3
-            }
-        ]
-    },
-    ...
-]
-```
-
-## Makefile
-
-	•	make all: Build the application and start the containers
-	•	make build: Build the application
-	•	make up: Start the containers
-	•	make down: Stop the containers
-	•	make check-db: Check if the database container is running
-	•	make restart-db: Restart the database container
-	•	make test: Build the application and run tests
+---
